@@ -5,10 +5,10 @@ async function up(pool) {
       id SERIAL PRIMARY KEY,
       name VARCHAR(50) NOT NULL,
       value VARCHAR(10),
-      moduleId INT NOT NULL REFERENCES modules(id) ON DELETE CASCADE,
-      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      isActive BOOLEAN NOT NULL DEFAULT TRUE
+      "moduleId" INT NOT NULL REFERENCES modules(id) ON DELETE CASCADE,
+      "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      "isActive" BOOLEAN NOT NULL DEFAULT TRUE
     );
     `;
     const result = await pool.query(query, []);

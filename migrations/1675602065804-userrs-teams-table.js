@@ -2,9 +2,9 @@ async function up(pool) {
   try {
     const query = `
     CREATE TABLE IF NOT EXISTS users_teams(
-      teamId INT NOT NULL REFERENCES teams(id) ON DELETE SET NULL,
-      userId INT NOT NULL REFERENCES users(id) ON DELETE SET NULL,
-      PRIMARY KEY(teamId,userId)
+      "teamId" INT NOT NULL REFERENCES teams(id) ON DELETE SET NULL,
+      "userId" INT NOT NULL REFERENCES users(id) ON DELETE SET NULL,
+      PRIMARY KEY("teamId","userId")
     );
     `;
     const result = await pool.query(query, []);

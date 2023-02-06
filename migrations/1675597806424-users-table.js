@@ -7,13 +7,13 @@ async function up(pool) {
         id SERIAL PRIMARY KEY,
         email VARCHAR(100) NOT NULL,
         lastname VARCHAR(50),
-        surname VARCHAR(50),
+        firstname VARCHAR(50),
         username VARCHAR(50),
         bio TEXT,
         password VARCHAR(256) NOT NULL,
-        managerId INT NOT NULL REFERENCES users(id) ON DELETE SET NULL,
-        createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        "managerId" INT REFERENCES users(id) ON DELETE SET NULL,
+        "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         status USER_STATUS NOT NULL DEFAULT 'pending'
       );
     `;

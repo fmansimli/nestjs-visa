@@ -58,8 +58,8 @@ module.exports.down = down;
 
 const apply = async () => {
   try {
-    const files = await fs.readdir(__dirname);
-    files.sort();
+    let files = await fs.readdir(__dirname);
+    files = files.sort().filter((filename) => !filename.startsWith('__'));
 
     if (param === 'all') {
       for (const filename of files) {

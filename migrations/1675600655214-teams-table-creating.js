@@ -5,12 +5,12 @@ async function up(pool) {
 
     CREATE TABLE IF NOT EXISTS teams(
       id SERIAL PRIMARY KEY,
-      leaderId INT NOT NULL REFERENCES users(id) ON DELETE SET NULL,
+      "leaderId" INT NOT NULL REFERENCES users(id) ON DELETE SET NULL,
       name VARCHAR(50) NOT NULL,
       description TEXT NOT NULL,
       status TEAM_STATUS NOT NULL DEFAULT 'pending',
-      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
     `;
     const result = await pool.query(query, []);

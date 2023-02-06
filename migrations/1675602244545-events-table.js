@@ -9,8 +9,8 @@ async function up(pool) {
       description TEXT NOT NULL,
       doc VARCHAR(500),
       status EVENT_STATUS NOT NULL DEFAULT 'pending',
-      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
     `;
     const result = await pool.query(query, []);

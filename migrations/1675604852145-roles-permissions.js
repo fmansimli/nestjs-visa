@@ -2,9 +2,9 @@ async function up(pool) {
   try {
     const query = `
     CREATE TABLE IF NOT EXISTS roles_permissions(
-      roleId INT NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
-      permissionId INT NOT NULL REFERENCES permissions(id) ON DELETE CASCADE,
-      PRIMARY KEY(roleId,permissionId)
+      "roleId" INT NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
+      "permissionId" INT NOT NULL REFERENCES permissions(id) ON DELETE CASCADE,
+      PRIMARY KEY("roleId","permissionId")
     );
     `;
     const result = await pool.query(query, []);

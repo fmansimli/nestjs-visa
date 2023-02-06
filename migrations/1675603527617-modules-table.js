@@ -4,9 +4,9 @@ async function up(pool) {
     CREATE TABLE IF NOT EXISTS modules(
       id SERIAL PRIMARY KEY,
       name VARCHAR(50) NOT NULL,
-      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      isActive BOOLEAN NOT NULL DEFAULT TRUE
+      "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      "isActive" BOOLEAN NOT NULL DEFAULT TRUE
     );
     `;
     const result = await pool.query(query, []);

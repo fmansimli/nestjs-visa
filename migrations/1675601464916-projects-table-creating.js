@@ -10,9 +10,9 @@ async function up(pool) {
       requirements TEXT NOT NULL,
       doc VARCHAR(500),
       status PROJECT_STATUS NOT NULL DEFAULT 'pending',
-      createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      teamId INT NOT NULL REFERENCES teams(id) ON DELETE SET NULL
+      "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      "teamId" INT NOT NULL REFERENCES teams(id) ON DELETE SET NULL
     );
     `;
     const result = await pool.query(query, []);
