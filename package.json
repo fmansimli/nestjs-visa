@@ -10,7 +10,7 @@
     "docker": "npm run docker:dev-down && docker:dev-up",
     "docker:dev-down": "docker compose rm $npm_package_name -s -f -v",
     "docker:dev-up": "docker compose up $npm_package_name -d",
-    "git": "git add . && git commit -m \"$npm_package_name ($npm_package_version) ## $(date) ## \" && git push origin master",
+    "git": "git add . && git commit -m \"$npm_package_name ($npm_package_version) ## $(date) ## \" && git push origin main",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
