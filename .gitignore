@@ -52,6 +52,8 @@ build/
 .vscode/
 .idea/
 
+public/**/*
+
 # TypeScript v1 declaration files
 typings/
 

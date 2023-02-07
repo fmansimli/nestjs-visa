@@ -1,4 +1,4 @@
-import { IsOptional, IsString, MinLength } from 'class-validator';
+import { IsNumber, IsString, MinLength } from 'class-validator';
 
 export class UpdateProjectDto {
   @IsString()
@@ -6,6 +6,11 @@ export class UpdateProjectDto {
   name: string;
 
   @IsString()
-  @IsOptional()
   description: string;
+
+  @IsString()
+  requirments: string;
+
+  @IsNumber()
+  teamId: number;
 }

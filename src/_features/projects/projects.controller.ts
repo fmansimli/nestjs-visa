@@ -25,31 +25,23 @@ export class ProjectsController {
 
   @Post()
   @UseInterceptors(
-    FileFieldsInterceptor(
-      [
-        { name: 'cover', maxCount: 1 },
-        { name: 'photo', maxCount: 4 },
-      ],
-      {
-        storage: diskStorage({
-          destination(req, file, callback) {
-            callback(null, './uploads/' + file.fieldname);
-          },
-          filename(req, file, callback) {
-            callback(null, Date.now() + file.originalname);
-          },
-        }),
-      },
-    ),
+    FileFieldsInterceptor([{ name: 'doc', maxCount: 1 }], {
+      storage: diskStorage({
+        destination(req, file, callback) {
+          callback(null, './uploads/projects/' + file.fieldname);
+        },
+        filename(req, file, callback) {
+          callback(null, Date.now() + '-' + file.originalname);
+        },
+      }),
+    }),
   )
   async createProject(
     @Body() project: CreateProjectDto,
     @UploadedFiles()
-    files: { cover?: Express.Multer.File[]; photo: Express.Multer.File[] },
+    files: { doc?: Express.Multer.File[] },
   ) {
-    return { project, files: files };
-
-    return this.projectsService.create(project);
+    return this.projectsService.create({ ...project, doc: files.doc[0].path });
   }
 
   @Patch(':id')

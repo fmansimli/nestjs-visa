@@ -1,11 +1,19 @@
-import { IsOptional, IsString, MinLength } from 'class-validator';
+import { IsNumber, IsString, MinLength } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateProjectDto {
   @IsString()
-  @MinLength(20)
+  @MinLength(5)
   name: string;
 
   @IsString()
-  @IsOptional()
+  @MinLength(15)
   description: string;
+
+  @IsString()
+  requirements: string;
+
+  @IsNumber()
+  @Transform(({ value }) => Number(value))
+  teamId: number;
 }

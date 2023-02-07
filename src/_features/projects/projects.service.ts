@@ -12,7 +12,6 @@ export class ProjectsService {
     const resp = await this.pool.query(query);
 
     const projects = resp.rows.map((item) => new Project(item));
-
     return projects;
   }
 
@@ -25,18 +24,17 @@ export class ProjectsService {
     return null;
   }
 
-  async findByEmail(email: string) {
-    const query = 'SELECT * FROM projects WHERE email=$1;';
-    const resp = await this.pool.query(query, [email]);
-    if (resp.rows.length) {
-      return new Project(resp.rows[0]);
-    }
-    return null;
-  }
-
   async create(project: Partial<Project>) {
-    const query = 'INSERT INTO projects(email, password) VALUES($1,$2) returning *;';
-    const result = await this.pool.query(query, [project.name]);
+    const query =
+      'INSERT INTO projects(name,description,requirements,"teamId",doc) VALUES($1,$2,$3,$4,$5) returning *;';
+    const result = await this.pool.query(query, [
+      project.name,
+      project.description,
+      project.requirements,
+      project.teamId,
+      project.doc,
+    ]);
+
     return new Project(result.rows[0]);
   }
 
