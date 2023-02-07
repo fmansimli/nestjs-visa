@@ -52,7 +52,11 @@ build/
 .vscode/
 .idea/
 
-public/**/*
+/public/**/*
+!/public
+
+# But include all subdirectories, including nested ones
+
 
 # TypeScript v1 declaration files
 typings/
