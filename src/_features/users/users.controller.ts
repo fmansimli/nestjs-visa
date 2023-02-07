@@ -1,16 +1,19 @@
-import { Body, Param, Get, Post, Patch, Delete } from '@nestjs/common';
-import { NotFoundException, Controller } from '@nestjs/common';
+import { NotFoundException, UseGuards } from '@nestjs/common';
+import { Body, Param, Get, Post, Patch, Delete, Controller } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import { CreateUserDto, UpdateUserDto } from './dto';
+import { JwtGuard } from 'src/guards';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  getAll() {
-    return this.usersService.find();
+  @UseGuards(JwtGuard)
+  async getAll() {
+    const users = await this.usersService.find();
+    return users;
   }
 
   @Get(':id')
@@ -21,7 +24,7 @@ export class UsersController {
   }
 
   @Post()
-  createUser(@Body() user: CreateUserDto) {
+  async createUser(@Body() user: CreateUserDto) {
     return this.usersService.create(user);
   }
 

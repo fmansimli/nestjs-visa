@@ -18,7 +18,19 @@ export class UsersService {
   async findById(id: number) {
     const query = 'SELECT * FROM users WHERE id=$1;';
     const resp = await this.pool.query(query, [id]);
-    return new User(resp.rows[0]);
+    if (resp.rows.length) {
+      return new User(resp.rows[0]);
+    }
+    return null;
+  }
+
+  async findByEmail(email: string) {
+    const query = 'SELECT * FROM users WHERE email=$1;';
+    const resp = await this.pool.query(query, [email]);
+    if (resp.rows.length) {
+      return new User(resp.rows[0]);
+    }
+    return null;
   }
 
   async create(user: Partial<User>) {

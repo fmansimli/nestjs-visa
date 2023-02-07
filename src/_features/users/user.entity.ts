@@ -14,8 +14,4 @@ export class User {
   constructor(user?: Partial<User>) {
     Object.assign(this, user);
   }
-
-  static new(item: any) {
-    return item;
-  }
 }
