@@ -1,6 +1,6 @@
 import { Module, DynamicModule, Global, Provider } from '@nestjs/common';
 import { Pool } from 'pg';
-import { DbOptions } from './constants';
+import { DbOptions } from './interfaces';
 
 @Global()
 @Module({})

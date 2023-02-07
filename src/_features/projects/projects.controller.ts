@@ -7,12 +7,12 @@ import { diskStorage } from 'multer';
 import { CreateProjectDto, UpdateProjectDto } from './dto';
 import { ProjectsService } from './projects.service';
 
-@Controller()
+@Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @Get()
-  getProjects() {
+  async getProjects() {
     return this.projectsService.find();
   }
 
@@ -53,7 +53,7 @@ export class ProjectsController {
   }
 
   @Patch(':id')
-  updateProject(@Param('id') id: number, @Body() project: UpdateProjectDto) {
+  async updateProject(@Param('id') id: number, @Body() project: UpdateProjectDto) {
     return this.projectsService.update(id, project);
   }
 
