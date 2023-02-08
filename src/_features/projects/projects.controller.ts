@@ -1,8 +1,13 @@
-import { NotFoundException, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { NotFoundException, Query, UploadedFiles } from '@nestjs/common';
 import { Controller, Get, Post, Patch, Delete, Body, Param, Res } from '@nestjs/common';
+import { UseGuards, UseInterceptors } from '@nestjs/common';
 
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+
+import { AccessGuard, JwtGuard } from 'src/guards';
+import { RequirePermissions } from 'src/decorators';
+
 import { FilesService } from '../files/files.service';
 
 import { CreateProjectDto, UpdateProjectDto } from './dto';
@@ -16,6 +21,9 @@ export class ProjectsController {
   ) {}
 
   @Get()
+  @UseGuards(AccessGuard)
+  @UseGuards(JwtGuard)
+  @RequirePermissions('test', 'test2', 'test3')
   async getProjects() {
     return this.projectsService.find();
   }
