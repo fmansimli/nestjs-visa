@@ -1,15 +1,19 @@
-import { NotFoundException, UploadedFiles, UseInterceptors } from '@nestjs/common';
-import { Controller, Get, Post, Patch, Delete, Body, Param } from '@nestjs/common';
+import { NotFoundException, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Res } from '@nestjs/common';
 
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { FilesService } from '../files/files.service';
 
 import { CreateProjectDto, UpdateProjectDto } from './dto';
 import { ProjectsService } from './projects.service';
 
 @Controller('projects')
 export class ProjectsController {
-  constructor(private readonly projectsService: ProjectsService) {}
+  constructor(
+    private readonly projectsService: ProjectsService,
+    private readonly filesService: FilesService,
+  ) {}
 
   @Get()
   async getProjects() {
@@ -23,12 +27,23 @@ export class ProjectsController {
     return project;
   }
 
+  @Get(':id/file')
+  async getFile(@Query('path') path: string, @Res() res) {
+    const file = await this.filesService.getFile(path);
+
+    res.set({
+      'Content-Type': 'application/octet-stream',
+      'Content-Disposition': `attachment; filename=${'textfile'}`,
+    });
+    res.send(file);
+  }
+
   @Post()
   @UseInterceptors(
     FileFieldsInterceptor([{ name: 'doc', maxCount: 1 }], {
       storage: diskStorage({
         destination(req, file, callback) {
-          callback(null, './uploads/projects/' + file.fieldname);
+          callback(null, './public/uploads/projects/' + file.fieldname);
         },
         filename(req, file, callback) {
           callback(null, Date.now() + '-' + file.originalname);

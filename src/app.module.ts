@@ -1,10 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 
 import { DbModule } from './_features/database/db.module';
 import { AuthModule } from './_features/auth/auth.module';
 import { ProjectsModule } from './_features/projects/projects.module';
 import { UsersModule } from './_features/users/users.module';
 import { TeamsModule } from './_features/teams/teams.module';
+
+import { FileProtectMiddleware } from './middlewares/file-protect.middleware';
 
 @Module({
   imports: [
@@ -20,6 +22,9 @@ import { TeamsModule } from './_features/teams/teams.module';
       password: '12345',
     }),
   ],
-  providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(FileProtectMiddleware).forRoutes('*');
+  }
+}
