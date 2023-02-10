@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
+
 import { TeamsController } from './teams.controller';
 import { TeamsService } from './teams.service';
 
+import { FilesModule } from '../files/files.module';
+
 @Module({
-  imports: [],
+  imports: [FilesModule],
   controllers: [TeamsController],
   providers: [TeamsService],
 })

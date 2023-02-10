@@ -3,10 +3,14 @@ import { Controller, NotFoundException } from '@nestjs/common';
 
 import { CreateTeamDto, UpdateTeamDto } from './dto';
 import { TeamsService } from './teams.service';
+import { FilesService } from '../files/files.service';
 
 @Controller('teams')
 export class TeamsController {
-  constructor(private readonly teamsService: TeamsService) {}
+  constructor(
+    private readonly teamsService: TeamsService,
+    private readonly filesService: FilesService,
+  ) {}
 
   @Get()
   async getAll() {
@@ -23,7 +27,15 @@ export class TeamsController {
 
   @Post()
   async createTeam(@Body() team: CreateTeamDto) {
-    return this.teamsService.create(team);
+    const path = await this.filesService.createPDF(
+      team.name,
+      'a Author',
+      team.description,
+    );
+
+    const created = await this.teamsService.create(team);
+
+    return { ...created, path };
   }
 
   @Patch(':id')
